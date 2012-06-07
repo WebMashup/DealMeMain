@@ -1,5 +1,10 @@
 /** Add css rules here for your application. */
 
+body
+{
+	background-image:url('/images/brillant.png');
+	background-repeat: repeat;
+}
 .logo
 {
 	float: left;
@@ -11,15 +16,21 @@
 
 .navBarButtonReplace
 {
-font: 14px/20px helvetica,arial,sans-serif;
+font: 15px/20px helvetica,arial,sans-serif;
 color: #8596A7;
-padding: 12px 20px 12px;
 display: block;
 float: left;
-padding: 12px 20px 12px;
-margin-left: -20px;
+padding: 24px 20px 0px;
+margin-left: -5px;
 font-weight: 200;
 line-height: 1;
+}
+
+.navBarStyle{
+	opacity: 0.95;
+	background-color: black;
+	max-height: 60px;
+	-webkit-box-shadow: -4px 3px 6px grey;
 }
 .directionPadding
 {
@@ -29,6 +40,21 @@ line-height: 1;
 {
 	position: absolute;
 	height: 100%;
+}
+.logoStyle
+{
+font-family: Lobster;
+font-size: 34px;
+float: left;
+color: #696F79;
+margin-top: 18px;
+margin-right: 20px;
+}
+.innerNav
+{
+	position: relative;
+	width: 960px;
+	margin: 0pt auto;
 }
 .filter:hover ul.widgett
 {
@@ -80,7 +106,7 @@ li
 	min-height: 1px;
 	float: left;
 	margin-right: 30 px;
-	width: 600px;
+	width: 586px;
 	padding-left: 10px;
 	margin-bottom: 80px;
 }
@@ -114,10 +140,18 @@ li
 {
 	position: relative;
 	margin: 0pt auto;
-	padding: 11px 0 pt;
 	width: 960 px;
 	margin-bottom: 10px;
+	margin-top: 20px;
 	border-bottom: 1px solid rgb(221,221,221);
+}
+.innerContainer
+{
+	position: relative;
+	margin: 0pt auto;
+	width: 960px;
+	margin-bottom: 10px;
+	margin-top: 20px;
 }
 
 .container ul > li
@@ -258,6 +292,7 @@ top: auto;
   	border-color: rgb(192,192,192);
   	border-style: solid;
   	position: relative;
+  	background-color: white;
 }
 
 ul li {

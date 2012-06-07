@@ -116,7 +116,7 @@ public class DealMe implements EntryPoint {
     
     /** NavBar **/
     ResponsiveNavbar navbar;    
-    VerticalPanel navBarPanel;
+    HorizontalPanel navBarPanel;
     boolean mapViewFlag = false;    
     boolean listViewFlag = true;
     
@@ -197,6 +197,7 @@ public class DealMe implements EntryPoint {
         /** NAVIGATION BAR **/
         navbar = new ResponsiveNavbar();
         Brand brand = new Brand("Deal.Me");
+        brand.setStylePrimaryName("logoStyle");
         Button listLink = new Button("List View");
         Button mapLink = new Button("Map View");
         
@@ -214,12 +215,18 @@ public class DealMe implements EntryPoint {
         nav.setAlignment(Alignment.RIGHT);
         nav.add(contactLink);
         
-        navbar.add(nav);
+        FlowPanel innerNav = new FlowPanel();
+        innerNav.setStylePrimaryName("innerNav");
+        innerNav.add(brand);
+        innerNav.add(listLink);
+        innerNav.add(mapLink);
+        innerNav.add(nav);
         
-        navBarPanel = new VerticalPanel();
+        navBarPanel = new HorizontalPanel();
+        navBarPanel.setStylePrimaryName("navBarStyle");
         navBarPanel.setWidth("100%");
-        navBarPanel.add(navbar);
-        navBarPanel.setHeight("40px");
+        navBarPanel.add(innerNav);
+        navBarPanel.setHeight("60px");
         
         contactLink.addClickHandler(new ClickHandler() {
               public void onClick(ClickEvent event) {
