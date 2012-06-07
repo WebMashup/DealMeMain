@@ -23,6 +23,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
  * The server side implementation of the RPC service.
  */
+//This class packages the deal information with deal details from yipit as well as 
+//business details are packaged together. 
+
+
 @SuppressWarnings("serial")
 public class DealServiceImpl extends RemoteServiceServlet implements
 		DealService {
@@ -51,9 +55,11 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 		} catch(SocketTimeoutException e) {
 			return null;
 		}
-		System.out.println("response = " + response);
+		// System.out.println("response = " + response);
 		//response = formatResponse(response);
 		
+		// using GSON library, the JSON returned by Yipit get stored in an array list of 
+		// Deal objects.
 		Gson gson = new GsonBuilder().create();
 		JSONYipitDeals yipitDeals = gson.fromJson(response, JSONYipitDeals.class);
 		ArrayList<Deal> deals = convertYipitDeals(yipitDeals);
@@ -61,6 +67,8 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 		return deals;
 	}
 	
+	// method filters the JSON object returned by yipit and pulls out relevant details the application 
+	// needs and stores it in the Deal objects ArrayList
 	private ArrayList<Deal> convertYipitDeals(JSONYipitDeals yipitDeals) {
 		
 		ArrayList<Deal> deals = new ArrayList<Deal>();
@@ -79,7 +87,6 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 						new Double(jsonDeal.business.locations.get(0).lon));
 			}
 			
-			//Temporary fix for discount.
 			BusinessInfo dealBusinessInfo=lookupYelpByPhone(jsonDeal.business.locations.get(0).phone);
 			if(dealBusinessInfo == null) {
 				dealBusinessInfo = new BusinessInfo(
@@ -141,6 +148,7 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 		
 		return parameterStr;
 	}
+	
 	// overloaded generateParamterStr for Yelp
 	private String generateParamterStr(String phoneNumber) 
 	{
@@ -195,6 +203,8 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 	
 	}
 	
+	// method filters the JSON object returned by Yelp and pulls out relevant details the application 
+	// needs and stores it in the BusinessInfo object
 	private BusinessInfo convertYelp(ArrayList<JSONYelpBusiness> yelp) {
 		
 		BusinessInfo instance =new BusinessInfo();

@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Relevant data received from the Yelp API.
  * See http://www.yelp.com/developers/documentation/v2/business
  */
+//This class is a wrapper class for the information returned by yelp, so the relevant information
+//can be used by our application directly.
 
 @SuppressWarnings("serial")
 public class BusinessInfo implements Serializable {

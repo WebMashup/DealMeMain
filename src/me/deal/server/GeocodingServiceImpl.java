@@ -39,7 +39,7 @@ public class GeocodingServiceImpl extends RemoteServiceServlet implements
 	public LatLngCoor convertAddressToLatLng(Location address) {
 		String endPoint = "http://maps.googleapis.com/maps/api/geocode/json";
 		String requestParameters = generateAddressParamterStr(address);
-		System.out.println("requestParameters");
+		// System.out.println("requestParameters");
 		String response;
 		try {
 			response = HttpSender.sendGetRequest(endPoint, requestParameters);

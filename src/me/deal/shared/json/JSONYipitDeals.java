@@ -2,6 +2,8 @@ package me.deal.shared.json;
 
 import java.util.ArrayList;
 
+//This class maps to the format of the JSON returned by Yelp
+//The nesting of classes refers to JSON objects within JSON objects
 public class JSONYipitDeals {
 	
 	public JSONYipitDeals() {

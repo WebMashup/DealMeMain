@@ -32,17 +32,20 @@ public class ListItemWidget extends Composite {
     }
     
     private Deal deal;
+    private final HandlerManager eventBus;
     final int MILLSECS_PER_DAY = 86400000;
     
-    public ListItemWidget() {
+    public ListItemWidget(final HandlerManager eventBus) {
         initWidget(uiBinder.createAndBindUi(this));
         this.deal = new Deal();
+        this.eventBus = eventBus;
     }
     
-    public ListItemWidget(final Deal deal) {
+    public ListItemWidget(final Deal deal, final HandlerManager eventBus) {
         initWidget(uiBinder.createAndBindUi(this));
         
         this.deal = deal;
+        this.eventBus = eventBus;
         initialize();
     }
 
@@ -92,7 +95,6 @@ public class ListItemWidget extends Composite {
     @UiField
     Image avgYelpRating;
     
-    
     @SuppressWarnings("deprecation")
     private void initialize() {
         /*
@@ -122,6 +124,7 @@ public class ListItemWidget extends Composite {
         setYipitUrl(deal.getYipitWebUrl());
         setEndDate(deal.getEndDate());
         setDealSource(deal.getDealSource());
+        setMapButton(deal.getIDUrl(), deal.getColor());
     }
     
     public void setDeal(final Deal newDeal) {
@@ -129,30 +132,18 @@ public class ListItemWidget extends Composite {
     	initialize();
     }
     
-    public void setMapButton(final int i, final String s, final HandlerManager eventBus){
-        
-        //formatMapButton.setTitle("Test title");
-        //if(i < 26)
-        //    formatMapButton.setUrl("http://www.google.com/mapfiles/marker" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ".substring(i,i+1) + ".png" );
-        formatMapButton.setUrl(s);
+    public void setMapButton(final Character iDUrl, final String color) {
+    	formatMapButton.setUrl("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + iDUrl + "|" + color);
         formatMapButton.addClickHandler(new ClickHandler() {
-                  @Override
-                  public void onClick(ClickEvent event) {
-                      
-                   System.out.println("clicked button " + String.valueOf(i));
+              @Override
+              public void onClick(ClickEvent event) {
                    Deals deals = Deals.getInstance();
-                   Location loc = new Location();
-                   loc.setLatLng(deal.getBusinessAddress().getLatLng());
+                   Location loc = deal.getBusinessAddress();
                    deals.setLocation(loc);
                    deals.setResize(false);
                    eventBus.fireEvent(new DealsEvent());
-                  }
-                });
-    }
-    
-    public void setIcon(final String s)
-    {
-        formatMapButton.setUrl(s);
+        	 }
+        });
     }
     
     public void setAvgRatingImageUrl(String avgRatingImageUrl) {
@@ -195,7 +186,7 @@ public class ListItemWidget extends Composite {
                 deal.getBusinessAddress().getState());
         
         LatLngCoor latlng = deal.getBusinessAddress().getLatLng();
-        Location userLoc = Deals.getInstance().getUserLocation();
+        Location userLoc = Deals.getInstance().getLocation();
         LatLngCoor userLatLng = userLoc.getLatLng(); 
         String directionsURL = "http://maps.google.com/maps?saddr="
                 + userLatLng.getLatitude() + "," +  userLatLng.getLongitude() +

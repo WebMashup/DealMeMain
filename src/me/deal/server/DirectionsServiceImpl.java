@@ -35,7 +35,7 @@ public class DirectionsServiceImpl extends RemoteServiceServlet implements
 			return null;
 		}
 		
-		System.out.println(response);
+		// System.out.println(response);
 		
 		Gson gson = new GsonBuilder().create();
 		JSONGoogleDirections googleDirections = gson.fromJson(response, JSONGoogleDirections.class);

@@ -89,7 +89,7 @@ public class DealMe implements EntryPoint {
     ScrollPanel mainScrollPanel;
     
     @UiField (provided=true)
-    FilterWidget filterWidget;    
+    FilterWidget filterWidget;
     
     @UiField (provided=true)
     LocationWidget locationWidget;
@@ -137,10 +137,8 @@ public class DealMe implements EntryPoint {
     void handleClick1(ClickEvent e) {
         if (filterPanel.isVisible())
             filterPanel.setVisible(false);
-        else
-        {
-            if (locationPanel.isVisible())
-            {
+        else {
+            if (locationPanel.isVisible()) {
                 locationPanel.setVisible(false);
                 filterPanel.setVisible(true);
             }
@@ -153,10 +151,8 @@ public class DealMe implements EntryPoint {
     void handleClick(ClickEvent e) {
         if (locationPanel.isVisible())
             locationPanel.setVisible(false);
-        else
-        {
-            if (filterPanel.isVisible())
-            {
+        else {
+            if (filterPanel.isVisible()) {
                 filterPanel.setVisible(false);
                 locationPanel.setVisible(true);
             }
@@ -409,7 +405,6 @@ public class DealMe implements EntryPoint {
                             public void onSuccess(final Location result) {
                                 // Window.alert(result.getAddress() + "\n" + result.getCity() + ", " + result.getState() + " " + result.getZipCode());
                                 Deals.getInstance().setLocation(result);
-                                Deals.getInstance().setUserLocation(result);
                                 Deals deals = Deals.getInstance();
                                 dealService.getYipitDeals(deals.getLocation().getLatLng(),
                                         deals.getRadius(),
