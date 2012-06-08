@@ -76,8 +76,6 @@ public class MapFilterWidget extends Composite {
         initWidget(uiBinder.createAndBindUi(this));
         this.dealService = dealService;
         this.eventBus = eventBus;
-        // initialize();
-        // bind();
     }
 
     @UiHandler("submitButton")
@@ -131,6 +129,7 @@ public class MapFilterWidget extends Composite {
         setDealFilters(filterArrayList);
     }
     
+    //Get checked deals and do new deal search
     private void setDealFilters(ArrayList<Category> filterList){
         
         Deals deals = Deals.getInstance();

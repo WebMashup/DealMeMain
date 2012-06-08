@@ -47,6 +47,7 @@ public class LocationWidget extends Composite {
     private String[] loadingStrings = {
             "Acquiring location", "Acquiring location.",
             "Acquiring location..", "Acquiring location..."};
+    
     private Boolean locationInitialized = false;
     private boolean mapView = false;
     

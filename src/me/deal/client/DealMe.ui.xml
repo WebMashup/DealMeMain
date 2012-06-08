@@ -10,70 +10,56 @@
 		.important {
 			font-weight: bold;
 		}
-		.bottomdivider {
-		margin-top: 5px;
-		margin-bottom: 10px;
-        border-bottom: 1px solid rgb(221,221,221);
-		}
 		.buttonview
 		{
 		font: 14px/20px helvetica,arial,sans-serif;
 		color: rgb(133, 150, 167);
 		line-height: 1;
 		}
-		.rightdivider {
-        border-right: 1px solid rgb(221,221,221);
-		}
-		.scrollable {
-                height: 100%;
-                overflow: auto;
-        }
         .maxheight {
 				height: 100%;
-		}
-		.marginal {
-		margin-top: 60px;
 		}
 		.mapBorder{
 		border: 1px solid rgb(221,221,221); 
 
-		}
-		
+		}		
 	</ui:style>
+	
 	<g:ScrollPanel ui:field="mainScrollPanel">
-	<g:HTMLPanel>
-	<div id="main">
-	<div class="container" style="">
-	<ul class="menu">
-	<b:Button ui:field="filterButton" styleName='{style.buttonview}'>Filters</b:Button>
-	</ul>
-	<ul class="menu">
-	<b:Button ui:field="locationButton" styleName='{style.buttonview}'>Location</b:Button>
-	</ul>
-	</div>
-	<div class="innerContainer" style="">
-	<g:FlowPanel ui:field="filterPanel">
-	<menubar:FilterWidget ui:field="filterWidget"></menubar:FilterWidget>
-	</g:FlowPanel>
-	<g:FlowPanel ui:field="locationPanel">
-	<menubar:LocationWidget ui:field="locationWidget"></menubar:LocationWidget>
-	</g:FlowPanel>
-	</div>
-	<div class="clear">
-	</div>
-	<div id="content">
-	<div id="cols">
-	<div class="col_large">
-	<main:ListWidget ui:field="listWidget" styleName='{style.maxheight}'></main:ListWidget>
-	</div>
-	<div class="col_small">
-	<div class="fixedpos">
-		<main:GoogleMapWidget ui:field="googleMapWidget" styleName='{style.mapBorder}'></main:GoogleMapWidget>
-	</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	</g:HTMLPanel>
+		<g:HTMLPanel>
+		<div id="main">
+			<div class="container" style="">
+			<ul class="menu">
+				<b:Button ui:field="filterButton" styleName='{style.buttonview}'>Filters</b:Button>
+			</ul>
+			<ul class="menu">
+				<b:Button ui:field="locationButton" styleName='{style.buttonview}'>Location</b:Button>
+			</ul>
+			</div>
+			<div class="innerContainer" style="">
+				<g:FlowPanel ui:field="filterPanel">
+					<menubar:FilterWidget ui:field="filterWidget"></menubar:FilterWidget>
+				</g:FlowPanel>
+				<g:FlowPanel ui:field="locationPanel">
+					<menubar:LocationWidget ui:field="locationWidget"></menubar:LocationWidget>
+				</g:FlowPanel>
+			</div>
+			<div class="clear">
+			</div>
+			<div id="content">
+				<div id="cols">
+					<div class="col_large">
+						<main:ListWidget ui:field="listWidget" styleName='{style.maxheight}'></main:ListWidget>
+					</div>
+					<div class="col_small">
+					<div class="fixedpos">
+						<main:GoogleMapWidget ui:field="googleMapWidget" styleName='{style.mapBorder}'></main:GoogleMapWidget>
+					</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</g:HTMLPanel>
 	</g:ScrollPanel>
+	
 </ui:UiBinder> 
