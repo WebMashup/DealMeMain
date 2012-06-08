@@ -1,5 +1,2 @@
 # Module dealme
 # RPC service class, partial path of RPC policy file
-me.deal.client.servlets.DealService, BAD2001AA9E787CBBCF1DB9B890F3F32.gwt.rpc
-me.deal.client.servlets.DirectionsService, 33A325A4C40D9251F54D020E381BF913.gwt.rpc
-me.deal.client.servlets.GeocodingService, 5B3532A29F64C033C241E42AE9370248.gwt.rpc
