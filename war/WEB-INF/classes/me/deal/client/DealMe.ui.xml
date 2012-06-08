@@ -6,14 +6,9 @@
     xmlns:menubar="urn:import:me.deal.client.view.menubar"
     xmlns:main="urn:import:me.deal.client.view.main" >
 
-    <ui:style>
+	<ui:style>
 		.important {
 			font-weight: bold;
-		}
-		.bottomdivider {
-		margin-top: 5px;
-		margin-bottom: 10px;
-        border-bottom: 1px solid rgb(221,221,221);
 		}
 		.buttonview
 		{
@@ -21,97 +16,50 @@
 		color: rgb(133, 150, 167);
 		line-height: 1;
 		}
-		.rightdivider {
-        border-right: 1px solid rgb(221,221,221);
-		}
-		.scrollable {
-                height: 100%;
-                overflow: auto;
-        }
         .maxheight {
 				height: 100%;
 		}
-		.marginal {
-		margin-top: 60px;
-		}
-    </ui:style>
+		.mapBorder{
+		border: 1px solid rgb(221,221,221); 
 
-    <g:ScrollPanel ui:field="mainScrollPanel" >
-
-        <g:HTMLPanel>
-
-            <div id="main" >
-
-                <div
-                    style=""
-                    class="container" >
-
-                    <ul class="menu" >
-
-                        <b:Button
-                            styleName="{style.buttonview}"
-                            ui:field="filterButton" >
-Filters
-                        </b:Button>
-                    </ul>
-
-                    <ul class="menu" >
-
-                        <b:Button
-                            styleName="{style.buttonview}"
-                            ui:field="locationButton" >
-Location
-                        </b:Button>
-                    </ul>
-                </div>
-
-                <div
-                    style=""
-                    class="container" >
-
-                    <g:FlowPanel ui:field="filterPanel" >
-
-                        <menubar:FilterWidget ui:field="filterWidget" >
-                        </menubar:FilterWidget>
-                    </g:FlowPanel>
-
-                    <g:FlowPanel ui:field="locationPanel" >
-
-                        <menubar:LocationWidget ui:field="locationWidget" >
-                        </menubar:LocationWidget>
-                    </g:FlowPanel>
-
-                    <li class="bottonborder" >
-                    </li>
-                </div>
-
-                <div class="clear" >
-                </div>
-
-                <div id="content" >
-
-                    <div id="cols" >
-
-                        <div class="col_large" >
-
-                            <main:ListWidget
-                                styleName="{style.maxheight}"
-                                ui:field="listWidget" >
-                            </main:ListWidget>
-                        </div>
-
-                        <div class="col_small" >
-
-                            <div class="fixedpos" >
-
-                                <main:GoogleMapWidget ui:field="googleMapWidget" >
-                                </main:GoogleMapWidget>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </g:HTMLPanel>
-    </g:ScrollPanel>
-
-</ui:UiBinder>
+		}		
+	</ui:style>
+	
+	<g:ScrollPanel ui:field="mainScrollPanel">
+		<g:HTMLPanel>
+		<div id="main">
+			<div class="container" style="">
+			<ul class="menu">
+				<b:Button ui:field="filterButton" styleName='{style.buttonview}'>Filters</b:Button>
+			</ul>
+			<ul class="menu">
+				<b:Button ui:field="locationButton" styleName='{style.buttonview}'>Location</b:Button>
+			</ul>
+			</div>
+			<div class="innerContainer" style="">
+				<g:FlowPanel ui:field="filterPanel">
+					<menubar:FilterWidget ui:field="filterWidget"></menubar:FilterWidget>
+				</g:FlowPanel>
+				<g:FlowPanel ui:field="locationPanel">
+					<menubar:LocationWidget ui:field="locationWidget"></menubar:LocationWidget>
+				</g:FlowPanel>
+			</div>
+			<div class="clear">
+			</div>
+			<div id="content">
+				<div id="cols">
+					<div class="col_large">
+						<main:ListWidget ui:field="listWidget" styleName='{style.maxheight}'></main:ListWidget>
+					</div>
+					<div class="col_small">
+					<div class="fixedpos">
+						<main:GoogleMapWidget ui:field="googleMapWidget" styleName='{style.mapBorder}'></main:GoogleMapWidget>
+					</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+	
+</ui:UiBinder> 

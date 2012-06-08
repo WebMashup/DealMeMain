@@ -20,6 +20,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ScrollEvent;
 import com.google.gwt.user.client.Window.ScrollHandler;
@@ -49,6 +50,7 @@ public class ListWidget extends Composite {
     private final HandlerManager eventBus;
     
     private final ScrollPanel mainScrollPanel;
+    private Timer scrollUnlockTimer;
     private Boolean scrollLock = false;
     private Boolean loadingMoreDeals = false;
     private final Integer numListItemWidgets = 5;
@@ -67,6 +69,12 @@ public class ListWidget extends Composite {
         	this.listItemContainer.add(new ListItemWidget(eventBus));
         }
         
+        scrollUnlockTimer = new Timer() {
+            public void run() {
+              scrollLock = false;
+            }
+          };
+        
         initialize();
     }
     
@@ -75,7 +83,6 @@ public class ListWidget extends Composite {
          * TODO: Add code to observe the DealsData model and automatically
          * update the items in the listItemContainer dynamically to reflect
          * changes in the model.
-         * 
          */
     	
     	Window.enableScrolling(true);
@@ -85,46 +92,47 @@ public class ListWidget extends Composite {
     	Window.addWindowScrollHandler(new ScrollHandler() {
 			@Override
 			public void onWindowScroll(ScrollEvent event) {
+
+                int numWidgets = listItemContainer.getWidgetCount();
+                Integer dealIndex = Deals.getInstance().getDealIndex();
+                
+				if(!loadingMoreDeals && dealIndex + numWidgets >= Deals.getInstance().getDeals().size() - (3*Deals.getInstance().DEFAULT_NUM_DEALS/4)) {
+                	loadingMoreDeals = true;
+                	Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+                		public void execute() {
+                			Deals deals = Deals.getInstance();
+                			dealService.getYipitDeals(deals.getLocation().getLatLng(),
+                            		deals.getRadius(),
+                            		deals.DEFAULT_NUM_DEALS * 2,
+                            		deals.getOffset(),
+                            		deals.getTags(), new AsyncCallback<ArrayList<Deal>> () {
+
+    								@Override
+    								public void onFailure(Throwable caught) {
+    	                                  Window.alert("Failed to load deals.");
+    	                                  scrollLock = false;
+    								}
+
+    								@Override
+    								public void onSuccess(ArrayList<Deal> result) {
+    									Deals deals = Deals.getInstance();
+    	                                deals.setOffset(deals.getOffset() + result.size());
+    	                                deals.addDeals(result);
+    	                                loadingMoreDeals = false;
+    	                                // System.out.println("Got deals, offset = " + deals.getOffset() + result.size() + ", scroll lock = " + scrollLock);
+    								}
+                			});
+            			}
+            		});
+                }
 				
                 if(!scrollLock) {
                 	int currPos = mainScrollPanel.getVerticalScrollPosition();
                     int maxPos = mainScrollPanel.getMaximumVerticalScrollPosition();
     				// System.out.println("currPos = " + currPos);
     				// System.out.println("maxPos = " + maxPos);
-                    int numWidgets = listItemContainer.getWidgetCount();
-                    Integer dealIndex = Deals.getInstance().getDealIndex();
                 	// System.out.println("dealIndex = " + dealIndex);
                 	// System.out.println("right = " + (dealIndex + numWidgets) + ", left = " + (Deals.getInstance().getDeals().size() - (3*Deals.getInstance().DEFAULT_NUM_DEALS/4)));
-                   
-                	if(!loadingMoreDeals && dealIndex + numWidgets >= Deals.getInstance().getDeals().size() - (3*Deals.getInstance().DEFAULT_NUM_DEALS/4)) {
-                    	loadingMoreDeals = true;
-                    	Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-                    		public void execute() {
-                    			Deals deals = Deals.getInstance();
-                    			dealService.getYipitDeals(deals.getLocation().getLatLng(),
-                                		deals.getRadius(),
-                                		deals.DEFAULT_NUM_DEALS * 2,
-                                		deals.getOffset(),
-                                		deals.getTags(), new AsyncCallback<ArrayList<Deal>> () {
-
-        								@Override
-        								public void onFailure(Throwable caught) {
-        	                                  Window.alert("Failed to load deals.");
-        	                                  scrollLock = false;
-        								}
-
-        								@Override
-        								public void onSuccess(ArrayList<Deal> result) {
-        									Deals deals = Deals.getInstance();
-        	                                deals.setOffset(deals.getOffset() + result.size());
-        	                                deals.addDeals(result);
-        	                                loadingMoreDeals = false;
-        	                                // System.out.println("Got deals, offset = " + deals.getOffset() + result.size() + ", scroll lock = " + scrollLock);
-        								}
-                    			});
-                			}
-                		});
-                    }
                 	
                     if(currPos >= maxPos && dealIndex + numWidgets < Deals.getInstance().getDeals().size()) {
                     	
@@ -142,7 +150,7 @@ public class ListWidget extends Composite {
                     	listItemContainer.add(currLi);
                     	// System.out.println("ID URL for Deal " + dealIndex + " = " + currDeal.getIDUrl());
                     	Deals.getInstance().incrementDealIndex();
-                    	scrollLock = false;
+                    	scrollUnlockTimer.schedule(100);
                     	eventBus.fireEvent(new DealsEvent());
                     }
                     
@@ -155,7 +163,7 @@ public class ListWidget extends Composite {
                     	currLi.setDeal(currDeal);
                     	listItemContainer.remove(numWidgets-1);
                     	listItemContainer.insert(currLi, 0);
-                    	scrollLock = false;
+                    	scrollUnlockTimer.schedule(100);
                     	eventBus.fireEvent(new DealsEvent());
                     }
                 }
