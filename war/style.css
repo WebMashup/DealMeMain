@@ -5,13 +5,23 @@ body
 	background-image:url('/images/brillant.png');
 	background-repeat: repeat;
 }
-.logo
+
+/** Navigation bar styling **/ 
+.logoStyle
 {
-	float: left;
-	margin: 0pt 14px 0 pt 0 pt;
-	padding: 2px 0 pt;
-	width: 140px;
-	height: 44px;
+font-family: Lobster;
+font-size: 34px;
+float: left;
+color: #696F79;
+margin-top: 18px;
+margin-right: 20px;
+}
+
+.navBarStyle{
+	opacity: 0.95;
+	background-color: black;
+	max-height: 60px;
+	-webkit-box-shadow: -4px 3px 6px grey;
 }
 
 .navBarButtonReplace
@@ -26,39 +36,23 @@ font-weight: 200;
 line-height: 1;
 }
 
-.navBarStyle{
-	opacity: 0.95;
-	background-color: black;
-	max-height: 60px;
-	-webkit-box-shadow: -4px 3px 6px grey;
-}
-.directionPadding
-{
-	margin-left: 6px;
-}
-.mapStyle
-{
-	position: absolute;
-	height: 100%;
-}
-.logoStyle
-{
-font-family: Lobster;
-font-size: 34px;
-float: left;
-color: #696F79;
-margin-top: 18px;
-margin-right: 20px;
-}
 .innerNav
 {
 	position: relative;
 	width: 960px;
 	margin: 0pt auto;
 }
-.filter:hover ul.widgett
+
+.directionPadding
 {
-	display: block;
+	margin-left: 6px;
+}
+
+/** ListView Map Styling **/
+.mapStyle
+{
+	position: absolute;
+	height: 100%;
 }
 
 .nopadding
@@ -66,10 +60,7 @@ margin-right: 20px;
 	margin-bottom: 0px;
 /* 	overflow: visible; */
 }
-.location:hover ul.widgett
-{
-	display: block;
-}
+
 .popupPlacement
 {
 	bottom: 10px !important;
@@ -78,10 +69,12 @@ margin-right: 20px;
 	top: auto !important;
 	background-color: white;
 }
+
 li
 {
 	list-style: none outside none;
 }
+
 .clear{
 	clear: both;
 	display: block;
@@ -89,6 +82,8 @@ li
 	height: 0pt;
 	font-size: 0pt;
 }
+
+/** List View Styling **/
 #content
 {
 	position: relative;
@@ -96,6 +91,7 @@ li
 	margin: 0pt auto;
 	padding: 20px 0 pt 40px;
 }
+
 #cols
 {
 	padding-bottom: 30px;
@@ -129,12 +125,6 @@ li
 {
 	margin-top: 60px;
 }
-#site_header
-{
-	display: block;
-	background: none repeat scroll 0% 0% rgb(240,241,244);
-	border-bottom: 1px solid rgb(216,221,225);
-}
 
 .container
 {
@@ -159,27 +149,10 @@ li
 	border-bottom: 1px solid rgb(221,221,221);
 }
 
-.container ul.menu
-{
-	float: left;
-}
-#site_header nav, #site_header .submenus, #site_header nav > ul > li {
-	float: left;
-}
 .fixedpos
 {
 	position: fixed;
 }
-
-#site_header nav > ul > li > ul.fixedpos
-{
-	position: absolute;
-}
-#site_header nav > ul > li.filter:hover ul.widgett
-{
-	display: block;
-}
-/** Example rules used by the template application (remove for your app) */
 
 h1 {
   font-size: 2em;
@@ -189,10 +162,6 @@ h1 {
   text-align: center;
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
-}
 
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
@@ -208,6 +177,8 @@ h1 {
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */
+
+/** ListItemContainer Styles **/
 #closeButton {
   margin: 15px 6px 6px;
 }
@@ -232,6 +203,7 @@ position: absolute;
 bottom: 5px;
 top: auto;
 }
+
 .miscStyle{
 	font-weight: 600;
 	
