@@ -69,6 +69,7 @@ public class GoogleMapWidget extends Composite {
         
         if (largeMap)
             mapWidget.setSize("100%", "100%");
+        	
         else
         	mapWidget.setSize("350px", "350px");
 
@@ -94,9 +95,11 @@ public class GoogleMapWidget extends Composite {
                 	LatLngBounds bounds = getLatLngBounds(minDealIndex, maxDealIndex);
                     
                 	mapWidget.setCenter(Deals.getInstance().getLocation().getLatLng().convert());
+                	
+                	if(!dragged && Deals.getInstance().getResize())
+                	{
                 	mapWidget.setZoomLevel(mapWidget.getBoundsZoomLevel(bounds));
-                	// System.out.println("zoomLevel = " + mapWidget.getBoundsZoomLevel(bounds));
-                	// System.out.println("Bounds Min = " + bounds.getSouthWest().getLatitude() + ", " + bounds.getSouthWest().getLongitude() + "\nBounds Max = " + bounds.getNorthEast().getLatitude() + ", " + bounds.getNorthEast().getLongitude());
+                	}
                 	Deals.getInstance().setRadius(boundsToRadius(bounds));
                 	
                     currentMarks.clear();
