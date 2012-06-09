@@ -192,6 +192,10 @@ public class DealMe implements EntryPoint {
         navBarPanel.setWidth("100%");
         navBarPanel.add(innerNav);
         navBarPanel.setHeight("60px");
+        
+        // Add an ID to the map
+        
+        googleMapWidget.getElement().setId("map_canvas");
               
         mapLink.addClickHandler(new ClickHandler() {
               public void onClick(ClickEvent event) {

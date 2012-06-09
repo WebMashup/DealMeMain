@@ -330,3 +330,7 @@ a:link.bizNameStyle {
   font-weight: normal;
   src: local('Lobster'), url('http://themes.googleusercontent.com/static/fonts/lobster/v5/NIaFDq6p6eLpSvtV2DTNDQLUuEpTyoUstqEm5AMlJo4.woff') format('woff');
 }
+
+#map_canvas img {
+    max-width: none;
+}
