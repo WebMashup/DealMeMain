@@ -119,9 +119,12 @@ public class GoogleMapWidget extends Composite {
                 loc.setLatLng(new LatLngCoor(mapWidget.getCenter().getLatitude(), mapWidget.getCenter().getLongitude()));
                 deals.setLocation(loc);
                 deals.setOffset(0);
+
+                System.out.println("Radius is " + Deals.getInstance().getRadius());
+                Integer numDealsToLoad = (largeMap == true) ? deals.DEFAULT_NUM_DEALS*2 : deals.DEFAULT_NUM_DEALS;
                 dealService.getYipitDeals(deals.getLocation().getLatLng(),
                     deals.getRadius(),
-                    deals.DEFAULT_NUM_DEALS,
+                    numDealsToLoad,
                     deals.getOffset(),
                     deals.getTags(),
                     new AsyncCallback<ArrayList<Deal>>() {
@@ -148,6 +151,7 @@ public class GoogleMapWidget extends Composite {
             public void onZoomEnd(MapZoomEndEvent e)
             {
                 Deals.getInstance().setRadius(boundsToRadius(mapWidget.getBounds()));
+                System.out.println("Set radius to " + boundsToRadius(mapWidget.getBounds()));
             }
         });
         

@@ -54,6 +54,7 @@ public class ListWidget extends Composite {
     private Boolean scrollLock = false;
     private Boolean loadingMoreDeals = false;
     private final Integer numListItemWidgets = 5;
+    private Timer scrollTimer;
     
     public @UiConstructor ListWidget(final ScrollPanel mainScrollPanel,
     		final DealServiceAsync dealService,
@@ -71,7 +72,8 @@ public class ListWidget extends Composite {
         
         scrollUnlockTimer = new Timer() {
             public void run() {
-              scrollLock = false;
+            	mainScrollPanel.setVerticalScrollPosition(mainScrollPanel.getVerticalScrollPosition()-1);
+            	scrollLock = false;
             }
           };
         
@@ -89,10 +91,11 @@ public class ListWidget extends Composite {
     	loadingSpinnerImage.setVisible(true);
         listItemContainer.setVisible(false);
     	
-    	Window.addWindowScrollHandler(new ScrollHandler() {
-			@Override
-			public void onWindowScroll(ScrollEvent event) {
-
+        
+        this.scrollTimer = new Timer() {
+        	
+            public void run() {
+            	
                 int numWidgets = listItemContainer.getWidgetCount();
                 Integer dealIndex = Deals.getInstance().getDealIndex();
                 
@@ -134,7 +137,7 @@ public class ListWidget extends Composite {
                 	// System.out.println("dealIndex = " + dealIndex);
                 	// System.out.println("right = " + (dealIndex + numWidgets) + ", left = " + (Deals.getInstance().getDeals().size() - (3*Deals.getInstance().DEFAULT_NUM_DEALS/4)));
                 	
-                    if(currPos >= maxPos && dealIndex + numWidgets < Deals.getInstance().getDeals().size()) {
+                    if(currPos >= (maxPos-5) && dealIndex + numWidgets < Deals.getInstance().getDeals().size()) {
                     	
                     	scrollLock = true;
                     	Deal currDeal = null;
@@ -154,7 +157,7 @@ public class ListWidget extends Composite {
                     	eventBus.fireEvent(new DealsEvent());
                     }
                     
-                    else if(currPos <= 0 && dealIndex != 0) {
+                    else if(currPos <= 5 && dealIndex != 0) {
                     	scrollLock = true;
                     	Deals.getInstance().decrementDealIndex();
                     	dealIndex = Deals.getInstance().getDealIndex();
@@ -167,8 +170,11 @@ public class ListWidget extends Composite {
                     	eventBus.fireEvent(new DealsEvent());
                     }
                 }
+                scrollTimer.schedule(5);
             }
-        });
+        };
+        
+        scrollTimer.schedule(5);
         
         
         eventBus.addHandler(DealsEvent.TYPE,

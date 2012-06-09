@@ -24,7 +24,10 @@
 
 		}		
 	</ui:style>
-	
+	<!-- <g:VerticalPanel>
+	<g:PopupPanel>
+	    <g:Label ui:field="scrollPopupLabel"></g:Label>
+	</g:PopupPanel>  -->
 	<g:ScrollPanel ui:field="mainScrollPanel">
 		<g:HTMLPanel>
 		<div id="main">
@@ -61,5 +64,6 @@
 			</div>
 		</g:HTMLPanel>
 	</g:ScrollPanel>
+	<!-- </g:VerticalPanel> -->
 	
 </ui:UiBinder> 

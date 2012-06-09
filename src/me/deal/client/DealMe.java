@@ -31,6 +31,8 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ScrollEvent;
+import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.geolocation.client.Geolocation;
 import com.google.gwt.geolocation.client.Position;
@@ -93,6 +95,9 @@ public class DealMe implements EntryPoint {
     @UiField
     Button locationButton;
     
+    /*@UiField
+    com.google.gwt.user.client.ui.Label scrollPopupLabel;*/
+    
     Widget w;
     
     /** NavBar **/ 
@@ -110,7 +115,6 @@ public class DealMe implements EntryPoint {
     FlowPanel popupMainPanel;    
     MapFilterWidget mapFilterWidget;    
     MapLocationWidget mapLocationWidget;
-    
     
     /** NavBar Buttons **/
     @UiHandler("filterButton")
@@ -192,7 +196,19 @@ public class DealMe implements EntryPoint {
         navBarPanel.setWidth("100%");
         navBarPanel.add(innerNav);
         navBarPanel.setHeight("60px");
-              
+         
+        /*
+        mainScrollPanel.addScrollHandler(new ScrollHandler() {
+
+			@Override
+			public void onScroll(ScrollEvent event) {
+				// TODO Auto-generated method stub
+
+	        	scrollPopupLabel.setText("currPos = " + mainScrollPanel.getVerticalScrollPosition() + ", maxPos = " + mainScrollPanel.getMaximumVerticalScrollPosition());
+			}
+        });
+        */
+        
         mapLink.addClickHandler(new ClickHandler() {
               public void onClick(ClickEvent event) {
             	  

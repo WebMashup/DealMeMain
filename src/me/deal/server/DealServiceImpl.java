@@ -32,7 +32,7 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 		DealService {
 
 	final String apiKey = "tvw7u8QvGqetCNUf";
-	final String apiKeyYelp="ijeImBEdt2K2hS2Abub6FQ";
+	final String apiKeyYelp="bN4POZR63-9zrSE1vRT6vA";
 	
 	/*
 	 *  Implemented using the Yipit API.  Returns deals relating to the tags within radius distance of
@@ -136,8 +136,10 @@ public class DealServiceImpl extends RemoteServiceServlet implements
 	private String generateParamterStr(LatLngCoor coor, Double radius, Integer limit, Integer offset, ArrayList<Category> tags) {
 		String parameterStr = "";
 		parameterStr += "key=" + apiKey + "&";
-		parameterStr += coor.getLatitude().isNaN() ? "" : "lat=" + coor.getLatitude() + "&";
-		parameterStr += coor.getLongitude().isNaN() ? "" : "lon=" + coor.getLongitude() + "&";
+		if(coor != null) {
+			parameterStr += coor.getLatitude() == null ? "" : "lat=" + coor.getLatitude() + "&";
+			parameterStr += coor.getLongitude() == null ? "" : "lon=" + coor.getLongitude() + "&";
+		}
 		parameterStr += radius.isNaN() ? "" : "radius=" + radius + "&";
 		parameterStr += limit == null ? "" : "limit=" + limit + "&";
 		parameterStr += offset == null ? "" : "offset=" + offset + "&";
