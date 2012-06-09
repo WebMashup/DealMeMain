@@ -196,18 +196,10 @@ public class DealMe implements EntryPoint {
         navBarPanel.setWidth("100%");
         navBarPanel.add(innerNav);
         navBarPanel.setHeight("60px");
-         
-        /*
-        mainScrollPanel.addScrollHandler(new ScrollHandler() {
-
-			@Override
-			public void onScroll(ScrollEvent event) {
-				// TODO Auto-generated method stub
-
-	        	scrollPopupLabel.setText("currPos = " + mainScrollPanel.getVerticalScrollPosition() + ", maxPos = " + mainScrollPanel.getMaximumVerticalScrollPosition());
-			}
-        });
-        */
+        
+        // Add an ID to the map
+        
+        googleMapWidget.getElement().setId("map_canvas");
         
         mapLink.addClickHandler(new ClickHandler() {
               public void onClick(ClickEvent event) {

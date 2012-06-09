@@ -134,7 +134,7 @@ public class ListItemWidget extends Composite {
     
     public void setMapButton(final Character iDUrl, final String color) {
     	formatMapButton.setUrl("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + iDUrl + "|" + color);
-        formatMapButton.addClickHandler(new ClickHandler() {
+    	formatMapButton.addClickHandler(new ClickHandler() {
               @Override
               public void onClick(ClickEvent event) {
                    Deals deals = Deals.getInstance();

@@ -69,6 +69,7 @@ public class GoogleMapWidget extends Composite {
         
         if (largeMap)
             mapWidget.setSize("100%", "100%");
+        	
         else
         	mapWidget.setSize("350px", "350px");
 
@@ -94,9 +95,11 @@ public class GoogleMapWidget extends Composite {
                 	LatLngBounds bounds = getLatLngBounds(minDealIndex, maxDealIndex);
                     
                 	mapWidget.setCenter(Deals.getInstance().getLocation().getLatLng().convert());
+                	
+                	if(!dragged && Deals.getInstance().getResize())
+                	{
                 	mapWidget.setZoomLevel(mapWidget.getBoundsZoomLevel(bounds));
-                	// System.out.println("zoomLevel = " + mapWidget.getBoundsZoomLevel(bounds));
-                	// System.out.println("Bounds Min = " + bounds.getSouthWest().getLatitude() + ", " + bounds.getSouthWest().getLongitude() + "\nBounds Max = " + bounds.getNorthEast().getLatitude() + ", " + bounds.getNorthEast().getLongitude());
+                	}
                 	Deals.getInstance().setRadius(boundsToRadius(bounds));
                 	
                     currentMarks.clear();
@@ -199,15 +202,25 @@ public class GoogleMapWidget extends Composite {
                 InfoWindowContent window;
                 if(!largeMap)
                 {
+                	String phoneNumber = current.getBusinessPhoneNumber();
+                	if (phoneNumber == null) phoneNumber = "";
+                	String htmlstring = "<div class=\"infowin\"><center>";
+                	htmlstring += "<a href=" + current.getYipitWebUrl() + ">" + current.getDealBusinessInfo().getName() + "</a>";
+                	htmlstring += "<br>";
+                	htmlstring += phoneNumber;
+                	htmlstring += "</center></div>";
+                	
+                	if (phoneNumber == null) phoneNumber = "";
                     try
                     {
-                        window  = new InfoWindowContent(current.getDealBusinessInfo().getName() + "<br>" + current.getBusinessPhoneNumber() + "</br>");                 
+                        window  = new InfoWindowContent(htmlstring);                
                     } 
                     catch(NullPointerException n) 
                     {
-                        window  = new InfoWindowContent(current.getTitle() + "<br>" + current.getBusinessPhoneNumber() + "</br>");                 
+                        window  = new InfoWindowContent(htmlstring);
                     }
-                    window.setMaxWidth(25);
+                   
+                   // window.setMaxWidth(25);
                 }
                 else
                 {
