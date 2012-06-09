@@ -334,3 +334,8 @@ a:link.bizNameStyle {
 #map_canvas img {
     max-width: none;
 }
+
+.infowin {
+	font-size: 14px;
+	padding: 0px;
+}

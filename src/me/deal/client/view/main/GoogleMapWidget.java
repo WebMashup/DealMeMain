@@ -198,15 +198,25 @@ public class GoogleMapWidget extends Composite {
                 InfoWindowContent window;
                 if(!largeMap)
                 {
+                	String phoneNumber = current.getBusinessPhoneNumber();
+                	if (phoneNumber == null) phoneNumber = "";
+                	String htmlstring = "<div class=\"infowin\"><center>";
+                	htmlstring += "<a href=" + current.getYipitWebUrl() + ">" + current.getDealBusinessInfo().getName() + "</a>";
+                	htmlstring += "<br>";
+                	htmlstring += phoneNumber;
+                	htmlstring += "</center></div>";
+                	
+                	if (phoneNumber == null) phoneNumber = "";
                     try
                     {
-                        window  = new InfoWindowContent(current.getDealBusinessInfo().getName() + "<br>" + current.getBusinessPhoneNumber() + "</br>");                 
+                        window  = new InfoWindowContent(htmlstring);                
                     } 
                     catch(NullPointerException n) 
                     {
-                        window  = new InfoWindowContent(current.getTitle() + "<br>" + current.getBusinessPhoneNumber() + "</br>");                 
+                        window  = new InfoWindowContent(htmlstring);
                     }
-                    window.setMaxWidth(25);
+                   
+                   // window.setMaxWidth(25);
                 }
                 else
                 {
